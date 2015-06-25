@@ -77,26 +77,26 @@ void Chess::legalMove(bool& move,int i1, int j1, int i2, int j2) // Checks if th
 	
 		switch (A[i1][j1].getName().at(0))
 		{
-		case 'R':
+		case 'R':				// Rook can only move up, down, left, right but not diagonally
 			if (abs(i2 - i1) != 0 && abs(j2 - j1) != 0 || A[i1][j1].getColor() == A[i2][j2].getColor())
 				cout << "Illegal move for " << A[i1][j1].getName() << "." << endl;
 			else
 				move = true;
 			break;
-		case 'k':
+		case 'k':	// knight can only move two steps in the i direction and 1 step in the j, or vice versa
 			
 			if (((abs(i2 - i1) == 2 && abs(j2 - j1) == 1) || (abs(i2 - i1) == 1 && abs(j2 - j1) == 2)) && A[i1][j1].getColor()!=A[i2][j2].getColor())
 				move = true;
 			else
 				cout << "Illegal move for " << A[i1][j1].getName() << "." << endl;
 			break;
-		case 'B':
+		case 'B': // bishop can only move diagonally
 			if (abs(i2 - i1) != abs(j2 - j1) || A[i1][j1].getColor() == A[i2][j2].getColor())
 				cout << "Illegal move for " << A[i1][j1].getName() << "." << endl;
 			else
 				move = true;
 			break;
-		case 'Q':
+		case 'Q': //queen can only move 1 step in any direction
 			if (abs(i2 - i1) == 2 || abs(j2 - j1) > 1 || A[i1][j1].getColor() == A[i2][j2].getColor())
 			{
 				cout << "Illegal move for " << A[i1][j1].getName() << "." << endl;
@@ -106,14 +106,14 @@ void Chess::legalMove(bool& move,int i1, int j1, int i2, int j2) // Checks if th
 				move = true;
 			}
 			break;
-		case 'K':
+		case 'K': //king can either move like a bishop or like a rook 
 			if ((abs(i2 - i1) > 1 && abs(i2 - i1) == abs(j2 - j1)) || (abs(j2 - j1) > 1 && abs(i2 - i1) == abs(j2 - j1)) || (abs(i2 - i1) > 1 && abs(j2 - j1) == 0) || (abs(j2 - j1) > 1 && abs(i2 - i1) == 0))
 				move = true;
 			else
 				cout << "Illegal move for " << A[i1][j1].getName() << "." << endl;
 			break;
 				
-		case 'P':
+		case 'P': // pawn can only move forward unless making a kill, then it can move only 1 step diagonally. It can't kill forward. The player can also move 1 pawn only forward 2 steps for the entire game
 			if ((A[i1][j1].getColor() == A[i2][j2].getColor()) || abs(j2 - j1)>1 || abs(i2 - i1)>2 || (abs(j2 - j1) == 1 && A[i2][j2].getName() == "  ") || (abs(i2 - i1) <= 2 && abs(j2 - j1) == 0 && A[i2][j2].getName() != "  ") || (abs(j2 - j1) == 1 && A[i1][j1].getColor() == A[i2][j2].getColor()))
 				cout << "Illegal move for " << A[i1][j1].getName() << "." << endl;
 			else if (abs(i2 - i1) == 2 && A[i1][j1].getColor() == 1 && twoStepPawnPlayer2==false )
@@ -143,8 +143,8 @@ void Chess::emptyPath(bool& move, int i1, int j1, int i2, int j2) // this functi
 	move = false;
 	switch (A[i1][j1].getName().at(0))
 	{
-	case 'R': 
-		if (i1 == i2 && A[i1][j1+1].getName()=="  ")
+	case 'R':  
+		if (i1 == i2 && A[i1][j1+1].getName()=="  ") 
 		{
 			for (int k = j1; k < j2 - 1; k++)
 			{

@@ -24,7 +24,6 @@ public:
 	void legalMove(bool&, int, int, int , int);
 	void emptyPath(bool&, int,int,int,int);
 	void kill(int, int, int, int);
-	int color;
 	void setup();
 	void history();
 	void viewHistory();
@@ -40,6 +39,7 @@ private:
 	int readColor;
 	int readI;
 	int readJ;
+	
 
 };
 
